@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:BaseSchema BaseSchema.xsd">
+  <Map datatype ="String" id="1">
+    <Source ConnectTo="0" SourceId="1"><![CDATA[Full Name]]></Source>
+    <Destination/> <!--If Blank then ignored in the transformation-->
+    <Process/>
+  </Map>
+  <Map datatype ="String" id="2">
+    <Source ConnectTo="0" SourceId="2"><![CDATA[Date of Birth]]></Source>
+    <Destination/>
+    <Process/>
+  </Map>
+  <Map datatype ="String" id="3">
+    <Source ConnectTo="1" SourceId="4"><![CDATA[Usual GP's Full Name]]></Source>
+    <Destination><![CDATA[GP_CODE]]></Destination>
+    <Process>
+      <Command action ="Load">
+        <Where>GPCodes.csv</Where>
+      </Command>
+    </Process>
+  </Map>
+  <Map datatype ="DateTime" id="4">
+    <Source ConnectTo="0" SourceId="0"/> <!--If no source then doesn't look in souce csv. Ie need to generate based on Action alone-->
+    <Destination><![CDATA[LIST_DATE]]></Destination>
+    <Process>
+      <Command action="QuarterStart"/>
+    </Process>
+  </Map>
+  <Map  datatype ="String" id="5">
+    <Source ConnectTo="0" SourceId="0"/>
+    <!--If no source then doesn't look in souce csv. Ie need to generate based on Action alone-->
+    <Destination><![CDATA[DATASOURCE]]></Destination>
+    <Process>
+      <Command action="RegexAction">
+        <Where/> <!--No Source so this will be blank. To add TES to this column-->
+        <Make><![CDATA[TES]]></Make>
+      </Command>
+    </Process>
+  </Map>
+  <Map datatype ="String" id="6">
+    <Source ConnectTo="4" SourceId="3"><![CDATA[NHS Number]]></Source>
+    <Destination><![CDATA[NHS_Number]]></Destination>
+    <Process>
+      <Command action="Removespaces"/>
+    </Process>
+  </Map>
+  <Map  datatype ="DateTime" id="7">
+    <Source ConnectTo="5" SourceId="5"><![CDATA[Date]]></Source>
+    <Destination><![CDATA[MMR_DATE]]></Destination>
+    <Process>
+      <Command action="SimpleMapping"/>
+    </Process>
+  </Map>
+  <Map  datatype ="String" id="8">
+    <Source ConnectTo="6" SourceId="6"><![CDATA[As GMS]]></Source>
+    <Destination><![CDATA[MMR_UNDER_GMS]]></Destination>
+    <Process>
+      <Command action="RegexAction">
+        <Where><![CDATA[^True$]]></Where>
+        <Make><![CDATA[Y]]></Make>
+      </Command>
+      <Command action="RegexAction">
+        <Where><![CDATA[^False$]]></Where>
+        <Make><![CDATA[N]]></Make>
+      </Command>
+    </Process>
+  </Map>
+  <Map datatype ="DateTime" id="9">
+    <Source ConnectTo="7" SourceId="7"><![CDATA[Date]]></Source>
+    <Destination><![CDATA[FIVE_IN_ONE_DATE]]></Destination>
+    <Process>
+      <Command action="SimpleMapping"/>
+    </Process>
+  </Map>
+  <Map datatype ="String" id="10">
+    <Source ConnectTo="8" SourceId="8"><![CDATA[As GMS]]></Source>
+    <Destination><![CDATA[FIVE_IN_ONE_UNDER_GMS]]></Destination>
+    <Process>
+      <Command action="RegexAction">
+        <Where><![CDATA[^True$]]></Where>
+        <Make><![CDATA[Y]]></Make>
+      </Command>
+      <Command action="RegexAction">
+        <Where><![CDATA[^False$]]></Where>
+        <Make><![CDATA[N]]></Make>
+      </Command>
+    </Process>
+  </Map>
+  <Map datatype ="DateTime" id="11">
+    <Source ConnectTo="9" SourceId="9"><![CDATA[Date]]></Source>
+    <Destination><![CDATA[MENC_DATE]]></Destination>
+    <Process>
+      <Command action="SimpleMapping"/>
+    </Process>
+  </Map>
+  <Map datatype ="String" id="12">
+    <Source ConnectTo="10" SourceId="10"><![CDATA[As GMS]]></Source>
+    <Destination><![CDATA[MENC_UNDER_GMS]]></Destination>
+    <Process>
+      <Command action="RegexAction">
+        <Where><![CDATA[^True$]]></Where>
+        <Make><![CDATA[Y]]></Make>
+      </Command>
+      <Command action="RegexAction">
+        <Where><![CDATA[^False$]]></Where>
+        <Make><![CDATA[N]]></Make>
+      </Command>
+    </Process>
+  </Map>
+</Mapping>

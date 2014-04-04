@@ -1,0 +1,43 @@
+﻿<Window x:Class="CsvMapper.UI.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:utilities="clr-namespace:CsvMapper.UI.Utilities"
+        Title="CsvMapper by GPSS (Makers of PatientChase)" Height="383.963" Width="541.29" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style  x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="Black"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,4,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54*"/>
+            <RowDefinition Height="112*"/>
+            <RowDefinition Height="189*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Please locate the input File" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="165" Height="26"/>
+        <Button  Style="{StaticResource RoundButtonTemplate}" Grid.Row="0" x:Name="ButtonFindFile"  Content="{Binding FindFileLocation}" HorizontalAlignment="Left" Margin="175,18,0,0" VerticalAlignment="Top" Width="335" Height="26" RenderTransformOrigin="0.5,0.5" Click="ButtonFindFile_Click" Cursor="Hand"/>
+        <TextBox x:Name="TextBoxResultsView" IsReadOnly = "True" Text="{Binding ResultsViewContent }"  HorizontalAlignment="Left" Height="72" Margin="10,30,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="280" Grid.Row="1" BorderThickness="1"/>
+        <Label Content="Results View" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="83"/>
+        <WebBrowser utilities:WebBrowserUtility.BindableSource="{Binding WebPageLocation}"  x:Name="WebBrowserBanner" Margin="10,10,21,0" Grid.Row="2"/>
+        <Button  x:Name="ButtonCreateOutput"  Style="{StaticResource RoundButtonTemplate}" Content="Create Output File" HorizontalAlignment="Left" Margin="308,30,0,0" Grid.Row="1" VerticalAlignment="Top" Width="202" Height="72"  FontSize="16" Click="ButtonCreateOutput_Click" Cursor="Hand">
+        </Button>
+    </Grid>
+</Window>
+
+
